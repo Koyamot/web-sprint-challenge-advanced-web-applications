@@ -1,20 +1,33 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event"
+import { render, screen, wait } from "@testing-library/react";
 import BubblePage from "./BubblePage";
-import {axiosWithAuth} from '..api/axiosWithAuth'
+import axios from "axios";
+// import { axiosWithAuth } from '..api/axiosWithAuth'
 
-jest.mock(mockFetchColors())
+
+
+const axiosFetch = () => {
+  const token =
+  "ahuBHejkJJiMDhmODZhZi0zaeLTQ4ZfeaseOGZgesai1jZWYgrTA07i73Gebhu98"
+  localStorage.setItem('token', token)
+  return axios.create({
+    headers: {
+        Authorization: token
+    },
+    baseURL: "http://localhost:5000/"
+})
+}
 
 const mockFetchColors = () => {
-  axiosWithAuth()
-  .get('api/colors')
+  axiosFetch()
+  .get("api/colors")
   .then(res => setColorList(res.data))
   .catch(err => console.error ('error!', err))
+
 };
 
 
-const colorData ={data: [
+const colorData = [
   {
     color: "aliceblue",
     code: {
@@ -92,15 +105,22 @@ const colorData ={data: [
     },
     id: 11
   }
-]};
+];
 
-test("Fetches data and renders the bubbles", async () => {
+jest.mock(mockFetchColors())
+
+test("Fetches data and renders the bubbles: softyellow", async () => {
   // Finish this test
   mockFetchColors(colorData)
   const { getByText } = render(<BubblePage />);
-  const colors = getByText(/colors/i);
-  expect(colors).toBeIntheDocument();
 
-  const bubbles = getByText(/bubbles/i)
-  expect(bubbles).toBeInTheDocument();
+  await wait(() => {
+    getByText(/softyellow/i)
+
+  })
+
+  const color = screen.getByText(/softyellow/i)
+  expect(color).toBeInTheDocument();
 });
+
+

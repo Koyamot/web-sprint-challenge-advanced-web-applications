@@ -61,9 +61,10 @@ body,
 }
 
 form {
-  margin-top: 60px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 16px;
 
   legend {
     padding-left: 40px;
@@ -90,10 +91,33 @@ form {
   padding: 0 36px 0 41px;
 
   button {
+    width: 100px;
     border: none;
     background-color: black;
     color: white;
     padding: 3px 8px;
     margin-top: 16px;
   }
+}
+
+.color-inpt{
+  margin-top: 0;
+  
+}
+
+.add-btn {
+  width: 200px;
+  border: none;
+  background-color: black;
+  color: white;
+  padding: 3px 8px;
+  margin: 0 auto;
+  margin-top: 16px;
+}
+
+.new-color {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
 }
